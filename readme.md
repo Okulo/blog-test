@@ -32,31 +32,6 @@
 - Docker / Docker Compose
 - PDO
 
-## Структура проекта
-
-blog-test/
-├── docker/
-│ ├── apache/
-│ │ ├── Dockerfile
-│ │ └── vhost.conf
-│ └── php/
-│ └── Dockerfile
-├── src/
-│ ├── public/
-│ │ ├── index.php
-│ │ ├── category.php
-│ │ ├── article.php
-│ │ ├── seed_category.php
-│ │ ├── seed_articles.php
-│ │ ├── images/
-│ │ └── css/
-│ ├── templates/
-│ └── templates_c/
-├── vendor/
-├── docker-compose.yml
-├── .env
-└── README.md
-
 ## Установка и запуск
 
 ### 1. Клонировать репозиторий
