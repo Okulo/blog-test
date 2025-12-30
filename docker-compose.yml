@@ -1,0 +1,49 @@
+services:
+  php:
+    build:
+      context: ./docker/php
+    container_name: blog_php
+    volumes:
+      - ./src:/var/www/html
+      - ./vendor:/var/www/html/vendor
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mysql
+
+  apache:
+    build:
+      context: ./docker/apache
+    container_name: blog_apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./docker/apache/vhost.conf:/usr/local/apache2/conf/extra/blog.conf
+    depends_on:
+      - php
+
+  mysql:
+    image: mysql:8.0
+    container_name: blog_mysql
+    env_file:
+      - .env
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: blog_phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
